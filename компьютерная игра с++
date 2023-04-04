@@ -1,0 +1,54 @@
+#include <iostream>
+#include <vector>
+//using namespace std;
+
+
+struct platform
+{
+	int height;
+	int min_energy;
+	
+	
+	platform():
+		height(0), min_energy(-1){
+		}
+};
+
+
+int d(const platform& a, const platform& b)
+{
+	return abs(a.height - b.height);
+}
+
+
+int main()
+{
+	int n; 
+	std::cin >> n;
+	if (n==1)
+	{
+		std::cout << 0;
+	}
+	
+	
+	platform prevplatform, curplatform;
+	std::cin >> prevplatform.height >> curplatform;
+	prevplatform.min_energy = 0;
+	curplatform.min_energy = d(prevplatform, curplatform);
+	
+	for (int i = 2, i < n; i++)
+	{
+		platform nextplatform;
+		cin >> nextplatform.height;
+		
+		auto simple_step = d(nextplatform, curplatform) + curplatform.min_energy;
+		auto super_step = d(nextplatform, prevplatform)*3 + prevplatform.min_energy;
+		
+		nextplatform.min_energy = min(simple_step, super,step);
+		
+		prevplatform = curplatform;
+		curplatform = nextplatform;
+		
+	}
+	std::cout << curplatform.min_enrgy;
+}
