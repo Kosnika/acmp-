@@ -1,0 +1,24 @@
+
+'''
+def min_energ(f: list, n):
+    c = [0]* (len(f)+1)
+    c[0] = 0
+    c[1] = f[0]
+    c[2] = abs(f[1] - f[0])
+    
+    for i in range(3, len(f)+1):
+        c[i] = min(c[i-2] + 3*abs(f[i-1] - f[i-3]), c[i-1] + abs(f[i-1] - f[i-2]))
+    return c
+n = int(input())
+f = list(map(int, input().split()))
+print(min_energ(f, n))'''
+
+n = int(input())
+a = list(map(int, input().split()))
+
+dp = [0] * n
+dp[1] = abs(a[1] - a[0])
+
+for i in range(2,n):
+    dp[i] = min(dp[i-1] + abs(a[i] - a[i-1]), dp[i-2] + 3 * abs(a[i] - a[i-2]))
+print(dp[n-1])
